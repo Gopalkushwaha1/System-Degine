@@ -1,0 +1,118 @@
+// .............................. Payment system code Start here .............................
+
+interface Payment {
+	void pay() ;
+}
+
+class UPI implements Payment {
+	@Override 
+	public void pay(){
+		System.out.println("Payemnt done :: via UPI") ; 
+	}
+}
+
+class Card implements Payment {
+	@Override 
+	public void pay(){
+		System.out.println("Payment done :: via Card") ; 
+	}
+}
+
+class NetBanking implements Payment {
+	@Override 
+	public void pay(){
+		System.out.println("Payment done :: via NetBanking") ; 
+	}
+}
+
+// .............................. Payment system code end here .............................
+
+
+// .............................. Restaurant  system code Start here .............................
+
+class Restaurant {
+	int id ;
+	String name ; 
+	String location ; 
+
+	List<MenuItem> items = new ArrayList<>() ; 
+}
+
+class MenuItem {
+	int code ; 
+	String name ; 
+	double price ; 
+
+}
+
+class RestaurantManager {
+	private static RestaurantManager restaurantManager ; 
+	private RestaurantManager(){} ; 
+	List<Restaurant> restaurants = new ArrayList<>() ; 
+
+	public static RestaurantManager getInstance() {
+		if(restaurantManager == null ) {
+			return restaurantManager = new RestaurantManager() ; 
+		}
+		return restaurantManager ; 
+	}
+
+	void addRestaurant(Restaurant restaurant) {
+		restaurants.add(restaurant) ; 
+	}
+	List<Restaurant> getRestaurantByLocation(String location){
+		List<Restaurant> result = new ArrayList<>() ; 
+		for ( Restaurant restaurant : restaurants ) {
+			if(location.equals(restaurant.location)) {
+				result.add(restaurant) ; 
+			}
+		} 
+		return result ; 
+	}
+}
+
+
+// .............................. Restorent  system code End here .............................
+
+
+// .............................. Order system code Start here .............................
+
+
+class Order {
+	int id ; 
+	User user ; 
+	Restaurant restaurant ;
+	boolean isPaid = false ; 
+	List<OrderItem> items = new ArrayList<>() ; 
+
+	public double getTotalAmount() {
+		double totalPrice = 0 ; 
+		for( OrderItem orderItem : items ) {
+			totalPrice += orderItem.menuItem.price * orderItem.quantity ; 
+		}
+		return totalPrice ; 
+	} 
+	void makePaid(){
+		this.isPaid = true ; 
+	}
+}
+
+class OrderItem { 
+	MenuItem menuItem ;
+	int quantity ; 
+}
+
+// .............................. Order system code End here .............................
+
+// .............................. Notification system code Start here .............................
+
+class Notification {
+	void notify(String message) {
+		System.out.println(message) ; 
+	}
+}
+
+// .............................. Notification system code End here .............................
+
+
+	
